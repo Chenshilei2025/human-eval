@@ -1,0 +1,39 @@
+name: Deploy human evaluation page
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/configure-pages@v5
+      - name: Build standalone page
+        run: |
+          python3 report_figures/data/human_eval/web_app/build_standalone.py
+          git diff --exit-code -- report_figures/data/human_eval/web_app/human_eval_standalone.html
+          mkdir -p _site/report_figures/data/human_eval/web_app
+          cp report_figures/data/human_eval/web_app/human_eval_standalone.html _site/index.html
+          cp _site/index.html _site/report_figures/data/human_eval/web_app/human_eval_standalone.html
+          cp _site/index.html _site/report_figures/data/human_eval/web_app/index.html
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -3,6 +3,13 @@
 用于审核 Haiku-train step159 实验中 Adversary 推测与 Judge 评分是否合理的中文标注网页。
 本仓库不是编程题 HumanEval benchmark。
 
+## 在线使用
+
+打开 https://chenshilei2025.github.io/human-eval/ 即可开始标注。
+GitHub Pages 使用 `.github/workflows/pages.yml` 自动部署；Settings → Pages
+的 Source 应选择 GitHub Actions。每次推送到 `main` 后自动重新构建并发布。
+发布产物仅包含内嵌数据的静态页面，不需要 Python 后端；原有深层单文件链接也保留。
+
 ## 直接使用
 
 下载本仓库，用浏览器打开
