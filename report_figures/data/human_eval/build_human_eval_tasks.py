@@ -27,7 +27,12 @@ def records(path: Path) -> dict[str, dict[str, Any]]:
 
 
 def sample_eil(rng: random.Random) -> list[dict[str, Any]]:
-    rows = [row for row in read_jsonl(RAW / "eil-step159.jsonl") if len(row.get("score", {}).get("branches", [])) == 4]
+    rows = [
+        row
+        for row in read_jsonl(RAW / "eil-step19.jsonl")
+        if len(row.get("score", {}).get("branches", [])) == 4
+        and all(branch.get("inferred_private_facts") for branch in row["score"]["branches"])
+    ]
     source = records(ROOT / "eil/data/dataset/EIL-v2/test.jsonl")
     by_domain: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for row in rows:
@@ -79,7 +84,7 @@ def sample_eil(rng: random.Random) -> list[dict[str, Any]]:
 def sample_miu(rng: random.Random) -> list[dict[str, Any]]:
     explained_statuses = {"clean-grounded", "minor-overreach", "partially-grounded", "manipulation-driven"}
     rows = [
-        row for row in read_jsonl(RAW / "miu-step159.jsonl")
+        row for row in read_jsonl(RAW / "miu-step19.jsonl")
         if row.get("score", {}).get("reasoning_claims")
         and all(claim.get("status") in explained_statuses for claim in row["score"]["reasoning_claims"])
     ]
@@ -128,6 +133,7 @@ def validate(tasks: list[dict[str, Any]], kind: str) -> None:
     assert len({task["source_id"] for task in tasks}) == 60
     assert set(Counter(task["domain"] for task in tasks).values()) == {20}
     if kind == "eil":
+        assert all(task["adversary_inferences"] for task in tasks)
         assert set(Counter((task["domain"], task["temperature"]) for task in tasks).values()) == {5}
         assert all(
             score in (0, 0.33, 0.67, 1)

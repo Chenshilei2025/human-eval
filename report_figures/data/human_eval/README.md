@@ -1,9 +1,9 @@
-# Haiku step159 Judge 合理性人工审核
+# Haiku step19 Judge 合理性人工审核
 
 本目录从以下两份文件各固定抽取 60 个 source sample：
 
-- `raw_samples/adversary_model_robustness/haiku_train/eil-step159.jsonl`
-- `raw_samples/adversary_model_robustness/haiku_train/miu-step159.jsonl`
+- `raw_samples/adversary_model_robustness/haiku_train/eil-step19.jsonl`
+- `raw_samples/adversary_model_robustness/haiku_train/miu-step19.jsonl`
 
 EIL 的 bargaining、gatekeeping、redress 各 20 条；MIU 的 commerce_guidance、
 financial_advisory、information_guidance 各 20 条。随机种子为 `20260910`。

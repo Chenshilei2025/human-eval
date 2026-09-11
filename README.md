@@ -1,6 +1,6 @@
 # Judge 合理性人工标注
 
-用于审核 Haiku-train step159 实验中 Adversary 推测与 Judge 评分是否合理的中文标注网页。
+用于审核 Haiku-train step19 实验中 Adversary 推测与 Judge 评分是否合理的中文标注网页。
 本仓库不是编程题 HumanEval benchmark。
 
 ## 在线使用

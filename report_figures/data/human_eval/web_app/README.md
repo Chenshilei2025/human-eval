@@ -1,6 +1,6 @@
 # Judge 合理性人工标注网页
 
-任务数据来自 Haiku-train step159：EIL 与 MIU 各固定抽取 60 个 source sample，
+任务数据来自 Haiku-train step19：EIL 与 MIU 各固定抽取 60 个 source sample，
 每个 family domain 各 20 个。标注员直接查看已有 judge 分数或状态，只填写
 `1 = 合理`、`0 = 不合理`，不重新填写四级指标分数。
 
